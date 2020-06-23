@@ -5,14 +5,23 @@ _PostgreSQL como manejador de BD tambien nos permite trabajar con datos de tipos
 1. Query: _Creando una tabla, insertando y consultando JSON_
 
         CREATE TABLE ordenes (                              -- Crea una tabla con un ID e info de tipo JSON
-            ID serial NOT NULL PRIMARY KEY                  -- Autoincremental, no puede ser vacio, y es llave primaria
+            ID serial NOT NULL PRIMARY KEY,                 -- Autoincremental, no puede ser vacio, y es llave primaria
             info json NOT NULL                              -- info es un campo de tipo JSON si quisieramos que ademas fuese binario se coloca jsonb    
         );
 
 
         INSERT INTO ordenes(info)
-            VALUES(
-                '{"cliente":"David Sanchez", "items":{"producto":"Biberón", "cantidad":"24"}}',
-                '{"cliente":"Edna Cardenas", "items":{"producto":"Carro juguete", "cantidad":"1"}}',
+        VALUES
+            (
+                '{"cliente":"David Sanchez", "items":{"producto":"Biberón", "cantidad":"24"}}'
+            ),
+            (
+                '{"cliente":"Edna Cardenas", "items":{"producto":"Carro juguete", "cantidad":"1"}}'
+            ),
+            (
                 '{"cliente":"William Arevalo", "items":[{"producto":"Tren juguete", "cantidad":"1"},{"producto":"Biberón", "cantidad":"2"}]}'
             );
+
+        SELECT
+            info -> 'cliente' as Cliente
+        FROM ordenes;
