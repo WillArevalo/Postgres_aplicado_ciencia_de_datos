@@ -25,3 +25,8 @@ _PostgreSQL como manejador de BD tambien nos permite trabajar con datos de tipos
         SELECT
             info -> 'cliente' as Cliente
         FROM ordenes;
+
+        SELECT
+            info ->> 'cliente' AS cliente
+        FROM ordenes
+        WHERE info -> 'items' ->> 'producto' = 'Biberón';
